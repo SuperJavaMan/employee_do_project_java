@@ -1,17 +1,20 @@
 package com.testprojects.employee_do_project.models;
 
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "employee")
-public class Employee {
+public class Employee implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +43,12 @@ public class Employee {
     @NotNull
     private String phone;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-                cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER,
+                cascade = CascadeType.ALL)
     @JoinTable(name = "current_projects",
     joinColumns = @JoinColumn(name = "employee_id"),
     inverseJoinColumns = @JoinColumn(name = "project_id"))
+    @JsonIgnore
     private Set<Project> projects = new HashSet<>();
 
     public Employee() {
