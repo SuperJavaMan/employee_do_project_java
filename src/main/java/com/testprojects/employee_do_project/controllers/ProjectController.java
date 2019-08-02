@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class ProjectController {
 
@@ -44,6 +45,7 @@ public class ProjectController {
                                  @RequestBody Project requestProject) {
         return projectRepository.findById(id).map(project -> {
             project.setProjectName(requestProject.getProjectName());
+            project.setDescription(requestProject.getDescription());
             project.setEmployees(requestProject.getEmployees());
             return projectRepository.save(project);
         }).orElseThrow(NoSuchElementException::new);

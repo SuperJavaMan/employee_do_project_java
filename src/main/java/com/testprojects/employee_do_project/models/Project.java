@@ -32,6 +32,9 @@ public class Project implements Serializable {
     @NotNull
     private String projectName;
 
+    @Column
+    private String description;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt", nullable = false, updatable = false)
     @CreatedDate
@@ -52,6 +55,11 @@ public class Project implements Serializable {
     public Project() {
     }
 
+    public Project(@NotNull String projectName, String description) {
+        this.projectName = projectName;
+        this.description = description;
+    }
+
     public Project(@NotNull String projectName) {
         this.projectName = projectName;
     }
@@ -62,6 +70,14 @@ public class Project implements Serializable {
 
     public String getProjectName() {
         return projectName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreatedAt() {
