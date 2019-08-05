@@ -60,6 +60,12 @@ public class Project implements Serializable {
         this.description = description;
     }
 
+//    public Project(@NotNull String projectName, String description, Set<Employee> employees) {
+//        this.projectName = projectName;
+//        this.description = description;
+//        this.employees = employees;
+//    }
+
     public Project(@NotNull String projectName) {
         this.projectName = projectName;
     }

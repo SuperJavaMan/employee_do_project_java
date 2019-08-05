@@ -54,7 +54,7 @@ public class ProjectController {
     @DeleteMapping("/project/{id}")
     public ResponseEntity<?> deleteProject(@PathVariable Long id) {
         return projectRepository.findById(id).map(project -> {
-            if (project.getEmployees().isEmpty()) {
+            if (!project.getEmployees().isEmpty()) {
                 return ResponseEntity.badRequest()
                         .body("You can not delete active project. " +
                                 "Please clean a list of employee before");

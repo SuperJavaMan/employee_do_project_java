@@ -23,7 +23,7 @@ public class Employee implements Serializable {
     @Column
     @NotNull
     @Size(min = 4)
-    private String fistName;
+    private String firstName;
 
     @Column
     @NotNull
@@ -54,28 +54,41 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(@NotNull @Size(min = 4) String fistName,
+    public Employee(@NotNull @Size(min = 4) String firstName,
                     @NotNull @Size(min = 4) String secondName,
                     @NotNull @Email String email,
                     @NotNull String position,
                     @NotNull String phone) {
-        this.fistName = fistName;
+        this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
         this.position = position;
         this.phone = phone;
     }
 
+//    public Employee(@NotNull @Size(min = 4) String firstName,
+//                    @NotNull @Size(min = 4) String secondName,
+//                    @NotNull @Email String email,
+//                    @NotNull String position,
+//                    @NotNull String phone, Set<Project> projects) {
+//        this.firstName = firstName;
+//        this.secondName = secondName;
+//        this.email = email;
+//        this.position = position;
+//        this.phone = phone;
+//        this.projects = projects;
+//    }
+
     public Long getId() {
         return id;
     }
 
-    public String getFistName() {
-        return fistName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFistName(String fistName) {
-        this.fistName = fistName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getSecondName() {

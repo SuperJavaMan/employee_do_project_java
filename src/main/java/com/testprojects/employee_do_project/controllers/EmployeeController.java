@@ -50,7 +50,7 @@ public class EmployeeController {
     public Employee putEmployee(@PathVariable Long id,
                                 @RequestBody Employee requestEmployee) {
         return employeeRepository.findById(id).map(employee -> {
-            employee.setFistName(requestEmployee.getFistName());
+            employee.setFirstName(requestEmployee.getFirstName());
             employee.setSecondName(requestEmployee.getSecondName());
             employee.setPosition(requestEmployee.getPosition());
             employee.setEmail(requestEmployee.getEmail());
