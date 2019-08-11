@@ -1,21 +1,15 @@
 package com.testprojects.employee_do_project.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "employee")
-public class Employee implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "admin")
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,25 +38,19 @@ public class Employee implements Serializable {
     @NotNull
     private String phone;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "current_projects",
-    joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
-    @JsonIgnoreProperties("employees")
-    private Set<Project> projects = new HashSet<>();
+    @OneToMany(mappedBy = "admin",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    private Set<Employee> employees = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private Admin admin;
-
-    public Employee() {
+    public Admin() {
     }
 
-    public Employee(@NotNull @Size(min = 4) String firstName,
-                    @NotNull @Size(min = 4) String secondName,
-                    @NotNull @Email String email,
-                    @NotNull String position,
-                    @NotNull String phone) {
+    public Admin(@NotNull @Size(min = 4) String firstName,
+                 @NotNull @Size(min = 4) String secondName,
+                 @NotNull @Email String email,
+                 @NotNull String position,
+                 @NotNull String phone) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
@@ -73,6 +61,7 @@ public class Employee implements Serializable {
     public Long getId() {
         return id;
     }
+
 
     public String getFirstName() {
         return firstName;
@@ -114,11 +103,11 @@ public class Employee implements Serializable {
         this.phone = phone;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
+    public Set<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 }

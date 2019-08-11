@@ -50,6 +50,7 @@ public class Project implements Serializable {
     @JoinTable(name = "current_projects",
     joinColumns = @JoinColumn(name = "project_id"),
     inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    @JsonIgnoreProperties("projects")
     private Set<Employee> employees = new HashSet<>();
 
     public Project() {
@@ -59,12 +60,6 @@ public class Project implements Serializable {
         this.projectName = projectName;
         this.description = description;
     }
-
-//    public Project(@NotNull String projectName, String description, Set<Employee> employees) {
-//        this.projectName = projectName;
-//        this.description = description;
-//        this.employees = employees;
-//    }
 
     public Project(@NotNull String projectName) {
         this.projectName = projectName;

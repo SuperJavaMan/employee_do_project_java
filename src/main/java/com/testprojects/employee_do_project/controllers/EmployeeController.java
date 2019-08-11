@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @CrossOrigin
 @RestController
@@ -40,6 +42,13 @@ public class EmployeeController {
     @PostMapping("/employee")
     public Employee postEmployee(@RequestBody Employee employee) {
         if (employee != null) {
+            Set<Project> projectList = employee.getProjects();
+            Set<Project> oldProjectList = new HashSet<>();
+            for (Project project : projectList) {
+                Project oldProject = projectRepository.findById(project.getId()).get();
+                oldProjectList.add(oldProject);
+            }
+            employee.setProjects(oldProjectList);
             return employeeRepository.save(employee);
         } else {
             throw new IllegalArgumentException();

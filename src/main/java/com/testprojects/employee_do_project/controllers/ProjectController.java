@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin
 @RestController
@@ -36,6 +34,13 @@ public class ProjectController {
     @PostMapping("/project")
     public Project postProject(@RequestBody Project project) {
         if (project != null) {
+            Set<Employee> employeeList = project.getEmployees();
+            Set<Employee> oldEmployeeList = new HashSet<>();
+            for (Employee employee : employeeList) {
+                Employee oldEmployee = employeeRepository.findById(employee.getId()).get();
+                oldEmployeeList.add(oldEmployee);
+            }
+            project.setEmployees(oldEmployeeList);
             return projectRepository.save(project);
         } else throw new IllegalArgumentException();
     }
