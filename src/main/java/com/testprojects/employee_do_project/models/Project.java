@@ -45,8 +45,7 @@ public class Project implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "current_projects",
     joinColumns = @JoinColumn(name = "project_id"),
     inverseJoinColumns = @JoinColumn(name = "employee_id"))

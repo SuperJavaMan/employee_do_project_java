@@ -78,4 +78,19 @@ public class ProjectController {
         project.get().getEmployees().add(employee.get());
         return projectRepository.save(project.get());
     }
+
+    @GetMapping("/project/search/{sequence}")
+    public List<Project> getAllThatContainsSequence(@PathVariable String sequence) {
+        return projectRepository.findByDescriptionOrProjectName(sequence);
+    }
+
+    @GetMapping("/project/newest")
+    public List<Project> getOrderedByNewest() {
+        return projectRepository.getInInverseOrder();
+    }
+
+    @GetMapping("/project/older/{id}")
+    public List<Project> getOlderThan(@PathVariable Long id) {
+        return projectRepository.getOldest(id);
+    }
 }

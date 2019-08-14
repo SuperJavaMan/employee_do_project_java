@@ -44,7 +44,7 @@ public class Employee implements Serializable {
     @NotNull
     private String phone;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "current_projects",
     joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))

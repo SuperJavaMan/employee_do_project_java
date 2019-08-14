@@ -86,4 +86,29 @@ public class EmployeeController {
         employeeRepository.save(employee);
         return ResponseEntity.ok().body("Ok");
     }
+
+    @GetMapping("/employee/orderedByName/{secondName")
+    public List<Employee> getBySecondNameAndOrderedByName(@PathVariable String secondName) {
+        return employeeRepository.findBySecondNameOrderByFirstNameAsc(secondName).get();
+    }
+
+    @GetMapping("/employee/countByPosition/{position}")
+    public Long countPositions(@PathVariable String position) {
+        return employeeRepository.countByPositionIgnoreCase(position);
+    }
+
+    @GetMapping("/employee/available/{position}")
+    public List<Employee> getAvailableByPosition(@PathVariable String position) {
+        return employeeRepository.findByPositionAndProjectsIsNull(position).get();
+    }
+
+    @GetMapping("/employee/availableOne")
+    public Employee getAvailableOne() {
+        return employeeRepository.findFirstByProjectsIsNull().get();
+    }
+
+    @GetMapping("/employee/emailContains/{sequence}")
+    public List<Employee> getAllThatContainsEmail(@PathVariable String sequence) {
+        return employeeRepository.findByEmailContainsIgnoreCase(sequence).get();
+    }
 }
