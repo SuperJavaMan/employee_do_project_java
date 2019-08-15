@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NamedQuery(name = "Admin.findSomeOne",
+        query = "SELECT a FROM Admin a WHERE a.id = :id")
 @Table(name = "admin")
 public class Admin {
 

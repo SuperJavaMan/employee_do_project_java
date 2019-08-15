@@ -79,4 +79,9 @@ public class AdminController {
         adminRepository.save(admin);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/admin/find/{id}")
+    public Admin getSomeOne(@PathVariable Long id) {
+        return adminRepository.findSomeOne(id);
+    }
 }
