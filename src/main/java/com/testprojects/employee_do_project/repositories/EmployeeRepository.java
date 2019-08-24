@@ -1,6 +1,7 @@
 package com.testprojects.employee_do_project.repositories;
 
 import com.testprojects.employee_do_project.models.Employee;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -17,4 +18,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Long countByPositionIgnoreCase(String position);
 
     Optional<List<Employee>> findByEmailContainsIgnoreCase(String sequence);
+
+    List<Employee> findByOrderByIdAsc();
+
+    List<Employee> findByOrderBySecondNameAsc();
+
+    List<Employee> findAll(Sort sort);
+
+
+
 }

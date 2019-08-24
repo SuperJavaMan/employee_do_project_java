@@ -6,5 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
-    Admin findSomeOne(@Param("id") Long id);
+//    Admin findSomeOne(@Param("id") Long id);
+
+    Admin findByFirstName(String fistName);
 }

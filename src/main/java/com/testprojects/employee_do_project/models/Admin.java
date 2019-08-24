@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@NamedQuery(name = "Admin.findSomeOne",
-        query = "SELECT a FROM Admin a WHERE a.id = :id")
+//@NamedQuery(name = "Admin.findSomeOne",
+//        query = "SELECT a FROM Admin a WHERE a.id = :id")
 @Table(name = "admin")
 public class Admin {
 
@@ -23,21 +23,17 @@ public class Admin {
     private String firstName;
 
     @Column
-    @NotNull
     @Size(min = 4)
     private String secondName;
 
     @Column
-    @NotNull
     @Email
     private String email;
 
     @Column
-    @NotNull
     private String position;
 
     @Column
-    @NotNull
     private String phone;
 
     @OneToMany(mappedBy = "admin",
@@ -48,16 +44,19 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(@NotNull @Size(min = 4) String firstName,
-                 @NotNull @Size(min = 4) String secondName,
-                 @NotNull @Email String email,
-                 @NotNull String position,
-                 @NotNull String phone) {
+    public Admin(@NotNull @Size(min = 4) String firstName, @Size(min = 4) String secondName) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+    }
+
+    public Admin(Long id, @NotNull @Size(min = 4) String firstName, @Size(min = 4) String secondName, @Email String email, String position, String phone, Set<Employee> employees) {
+        this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
         this.position = position;
         this.phone = phone;
+        this.employees = employees;
     }
 
     public Long getId() {

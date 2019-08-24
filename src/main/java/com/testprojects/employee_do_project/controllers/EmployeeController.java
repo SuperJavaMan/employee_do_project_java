@@ -5,6 +5,7 @@ import com.testprojects.employee_do_project.models.Project;
 import com.testprojects.employee_do_project.repositories.EmployeeRepository;
 import com.testprojects.employee_do_project.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,15 +18,16 @@ import java.util.Set;
 @RestController
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
+
+    private final ProjectRepository projectRepository;
 
     @Autowired
-    private ProjectRepository projectRepository;
-
-//    public EmployeeController(EmployeeRepository employeeRepository) {
-//        this.employeeRepository = employeeRepository;
-//    }
+    public EmployeeController(EmployeeRepository employeeRepository,
+                              ProjectRepository projectRepository) {
+        this.employeeRepository = employeeRepository;
+        this.projectRepository = projectRepository;
+    }
 
     @GetMapping("/employee")
     public List<Employee> getAllEmployee() {
@@ -110,5 +112,10 @@ public class EmployeeController {
     @GetMapping("/employee/emailContains/{sequence}")
     public List<Employee> getAllThatContainsEmail(@PathVariable String sequence) {
         return employeeRepository.findByEmailContainsIgnoreCase(sequence).get();
+    }
+
+    @GetMapping("/employee/sorted")
+    public List<Employee> getEmployeeSorted() {
+        return employeeRepository.findAll(Sort.by(Sort.Direction.ASC, "email"));
     }
 }

@@ -4,7 +4,10 @@ import com.testprojects.employee_do_project.models.Admin;
 import com.testprojects.employee_do_project.models.Employee;
 import com.testprojects.employee_do_project.repositories.AdminRepository;
 import com.testprojects.employee_do_project.repositories.EmployeeRepository;
+import com.testprojects.employee_do_project.repositories.PagableAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,9 @@ import java.util.Set;
 
 @RestController
 public class AdminController {
+
+    @Autowired
+    private PagableAdminRepository pagableAdminRepository;
 
     @Autowired
     private AdminRepository adminRepository;
@@ -31,6 +37,11 @@ public class AdminController {
     public Admin getAdminById(@PathVariable Long id) {
         return adminRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    @GetMapping("/admin/name/{name}")
+    public Admin getAdminByName(@PathVariable String name) {
+        return adminRepository.findByFirstName(name);
     }
 
     @PostMapping("/admin")
@@ -80,8 +91,13 @@ public class AdminController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/admin/find/{id}")
-    public Admin getSomeOne(@PathVariable Long id) {
-        return adminRepository.findSomeOne(id);
+//    @GetMapping("/admin/find/{id}")
+//    public Admin getSomeOne(@PathVariable Long id) {
+//        return adminRepository.findSomeOne(id);
+//    }
+
+    @GetMapping("/admin/search/{name}")
+    public Page<Admin> findAdminByName(@PathVariable String name, Pageable pageable) {
+        return pagableAdminRepository.findByFirstName(name, pageable);
     }
 }
