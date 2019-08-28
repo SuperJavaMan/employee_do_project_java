@@ -60,6 +60,12 @@ public class Project implements Serializable {
         this.description = description;
     }
 
+    public Project(Long id, @NotNull String projectName, String description) {
+        this.id = id;
+        this.projectName = projectName;
+        this.description = description;
+    }
+
     public Project(@NotNull String projectName) {
         this.projectName = projectName;
     }

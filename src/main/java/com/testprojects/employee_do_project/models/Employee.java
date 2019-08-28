@@ -69,6 +69,19 @@ public class Employee implements Serializable {
         this.position = position;
         this.phone = phone;
     }
+    public Employee(Long id,
+                    @NotNull @Size(min = 4) String firstName,
+                    @NotNull @Size(min = 4) String secondName,
+                    @NotNull @Email String email,
+                    @NotNull String position,
+                    @NotNull String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.position = position;
+        this.phone = phone;
+    }
 
     public Long getId() {
         return id;
